@@ -1,29 +1,57 @@
-///***************************************************************************
-// * 							tungtt							               *    
-// **************************************************************************/
-//package com.hiber;
-//
-//import javax.activation.DataSource;
-//
-//import org.apache.log4j.Logger;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.context.ApplicationListener;
-//import org.springframework.context.event.ContextStartedEvent;
-//
-///**
-// *  Author : tungtt         
-// * Aug 28, 2016
-// */
-//public class ContextStartEventHandler implements ApplicationListener<ContextStartedEvent> {
-//
-//	private final static Logger logger = Logger.getLogger(ContextStartEventHandler.class);
-//	
-//	@Autowired
-//	private DataSource dataSource;
-//	
-//	@Override
-//	public void onApplicationEvent(ContextStartedEvent arg0) {
-//		logger.info("context start application: " + dataSource);
-//	}
-//
-//}
+/***************************************************************************
+ * 							tungtt							               *    
+ **************************************************************************/
+package com.hiber;
+
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.apache.log4j.Logger;
+import org.apache.tomcat.jdbc.pool.DataSource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
+import org.springframework.stereotype.Component;
+
+/**
+ *  Author : tungtt         
+ * Sep 1, 2016
+ */
+@Component
+public class ContextStartEventHandler implements ApplicationListener<ApplicationReadyEvent
+> {
+	private final static Logger LOGGER = Logger.getLogger(ContextStartEventHandler.class);
+	
+	@Autowired
+	private DataSource dataSource;
+	
+	@Override
+	public void onApplicationEvent(ApplicationReadyEvent context) {
+		try {
+//			createTable("Groups", "create table Groups(id BIGINT PRIMARY "
+//					+ "key GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), "
+//					+ "name VARCHAR(50))");
+			createTable("Users", "create table Users("
+						+ "username VARCHAR(50) primary key, "
+						+ "password VARCHAR(50), "
+						+ "age INTEGER, "
+						+ "groupId BIGINT, "
+						+ "CONSTRAINT GROUP_FK FOREIGN KEY (groupId) "
+						+ "REFERENCES GROUPS(id))");
+		} catch(Exception e) {
+			LOGGER.error("Context start: " + e.getMessage());
+		}
+		LOGGER.info("Context start application " + dataSource);
+	}
+	
+	private void createTable(String name, String script) throws SQLException {
+		DatabaseMetaData dbmd = dataSource.getConnection().getMetaData();
+		ResultSet rs = dbmd.getTables(null, null, "STUDENT", null);
+		if(rs.next()) {
+			LOGGER.info("Table " + rs.getString(name) + " already exists!");
+			return;
+		}
+		dataSource.getConnection().createStatement().executeUpdate(script);
+	}
+}

@@ -7,10 +7,10 @@
 		<c:if test="${not empty error}">
 			<div class="error">${error}</div>
 		</c:if>
-		<form method="post" action="/j_spring_security_check">
+		<form method="post" action="/login">
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
-			<input type="text" name="j_username" placeholder="Username" />
-			<input type="password" name="j_password" placeholder="Password" />
+			<input type="text" name="username" placeholder="Username" />
+			<input type="password" name="password" placeholder="Password" />
 			<input type="submit" name="commit" value="Login"/>
 		</form>
 	</tiles:putAttribute>

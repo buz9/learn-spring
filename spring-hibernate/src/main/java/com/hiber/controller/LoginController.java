@@ -1,7 +1,7 @@
 /***************************************************************************
  * 							tungtt							               *    
  **************************************************************************/
-package com.sboot.controller;
+package com.hiber.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,19 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
  * Aug 28, 2016
  */
 @Controller
-public class UserController {
+public class LoginController {
 	@RequestMapping("/login")
 	ModelAndView login(@RequestParam(value="error", required=false) String error) {
 		ModelAndView mv = new ModelAndView("login");
 		if(error != null) mv.addObject("error", "Sai tên đăng nhập hoặc mật khẩu!");
-		return mv;
-	}
-	
-	@RequestMapping("/nguoi-dung")
-	ModelAndView forUser() {
-		ModelAndView mv = new ModelAndView("index");
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		mv.addObject("message", "Hello User " + auth.getName());
 		return mv;
 	}
 	
@@ -44,4 +36,14 @@ public class UserController {
 		
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/user")
+	ModelAndView forUser() {
+		ModelAndView mv = new ModelAndView("index");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		mv.addObject("message", "Hello User " + auth.getName());
+		return mv;
+	}
+	
+	
 }

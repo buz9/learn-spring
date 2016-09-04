@@ -2,6 +2,7 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Spring Boot Application</title>
@@ -16,13 +17,15 @@
 			<td>
 				<a href="/">Trang Chủ</a>
 				<sec:authorize access="!hasAnyRole('ROLE_USER')">
-					<a href="/dang-nhap" style="margin-left: 30px">Đăng Nhập</a>
+					<a href="/login" style="margin-left: 30px">Đăng Nhập</a>
 				</sec:authorize>
 				<sec:authorize access="hasAnyRole('ROLE_USER')">
-					<a href="/nguoi-dung" style="margin-left: 30px">Cá Nhân</a>
-					<a href="javascript:document.getElementById('logout').submit()" style="margin-left: 30px">Đăng xuất</a>
+					<a href="/account" style="margin-left: 30px">Tài khoản</a>
+					<a href="/group" style="margin-left: 30px">Nhóm</a>
+					<a href="/user" style="margin-left: 30px">Cá Nhân</a>
+					<a href="/logout" style="margin-left: 30px">Đăng xuất</a>
 				</sec:authorize>
-				<form action="/j_spring_security_logout" id="logout" method="POST">
+				<form action="/logout" id="logout" method="POST">
 					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 				</form>
 			</td>

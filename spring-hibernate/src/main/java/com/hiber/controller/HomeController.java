@@ -1,7 +1,7 @@
 /***************************************************************************
  * 							tungtt							               *    
  **************************************************************************/
-package com.sboot.controller;
+package com.hiber.controller;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
