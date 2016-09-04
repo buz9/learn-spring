@@ -35,6 +35,7 @@ public class ContextStartEventHandler implements ApplicationListener<Application
 			createTable("Users", "create table Users("
 						+ "username VARCHAR(50) primary key, "
 						+ "password VARCHAR(50), "
+						+ "email VARCHAR(100), "
 						+ "age INTEGER, "
 						+ "groupId BIGINT, "
 						+ "CONSTRAINT GROUP_FK FOREIGN KEY (groupId) "

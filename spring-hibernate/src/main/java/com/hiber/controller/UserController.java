@@ -40,7 +40,7 @@ public class UserController {
 	private UserDAO userDAO;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView addForm(@RequestParam(value="group", required=false) Integer group) {
+	public ModelAndView list(@RequestParam(value="group", required=false) Integer group) {
 		ModelAndView mv = new ModelAndView("user.list", "command", new User());
 		mv.addObject("groups", toGroupMap(groupDAO.list("")));
 		mv.addObject("users", userDAO.list(group));

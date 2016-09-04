@@ -22,18 +22,18 @@
 			<tr>
 				<td colspan="2">
 					<form method="GET" action="/group">
-						<input type="text" name="group">
+						<input type="text" name="q">
 					</form>
 				</td>
 			</tr>
 			<c:forEach items="${groups}" var="item" varStatus="loop">
 				<tr>
 					<td>
-						<a href="/account/?group=${item.id}">${item.name}</a>
+						<a href="/account?group=${item.id}">${item.name}</a>
 						<ul>
-							<%-- <c:forEach items="${item.users}" var="user" varStatus="loop">
+							<c:forEach items="${item.users}" var="user" varStatus="loop">
 								<li>${user.username} - ${user.age}</li>
-							</c:forEach> --%>
+							</c:forEach>
 						</ul>
 					</td>
 					<td><a href="/group/delete/${item.id}">Delete</a></td>

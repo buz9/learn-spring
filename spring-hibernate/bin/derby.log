@@ -1,7 +1,7 @@
 ----------------------------------------------------------------
-Sun Sep 04 22:09:37 ICT 2016:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0156-f5bf-6728-0000141aaec8 
-on database directory C:\Java\hiberdb with class loader java.net.URLClassLoader@56c3f0f5 
+Sun Sep 04 17:06:09 ICT 2016:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0156-f4a9-958c-0000091079d0 
+on database directory C:\Java\hiberdb with class loader sun.misc.Launcher$AppClassLoader@6bc7c054 
 Loaded from file:/C:/Java/Dependencies/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_91-b14
