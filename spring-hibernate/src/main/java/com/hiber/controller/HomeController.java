@@ -20,7 +20,6 @@ public class HomeController {
 	ModelAndView home() {
 		ModelAndView mv = new ModelAndView("index");
 		mv.addObject("message", "Hello World");
-		logger.info("ok");
 		return mv;
 	}
 }

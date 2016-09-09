@@ -20,8 +20,8 @@ import com.hiber.model.Student;
 /**
  * Author : tungtt Sep 9, 2016
  */
-@Service
-public class StudentDetailsService implements UserDetailsService {
+@Service("studentDetailsService")
+public class UserDetailService implements UserDetailsService {
 
 	@Autowired
 	private StudentDAO studentDAO;
