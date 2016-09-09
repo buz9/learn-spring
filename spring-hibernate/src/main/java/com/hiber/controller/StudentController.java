@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hiber.dao.GroupDAO;
-import com.hiber.dao.UserDAO;
+import com.hiber.dao.StudentDAO;
 import com.hiber.model.Group;
-import com.hiber.model.User;
+import com.hiber.model.Student;
 
 /**
  *  Author : tungtt         
@@ -31,24 +31,28 @@ import com.hiber.model.User;
  */
 @Controller
 @RequestMapping(value="/account")
-public class UserController {
-	private final static Logger LOGGER = Logger.getLogger(UserController.class);
+public class StudentController {
+	private final static Logger LOGGER = Logger.getLogger(StudentController.class);
 	@Autowired
 	private GroupDAO groupDAO;
 	
 	@Autowired
-	private UserDAO userDAO;
+	private StudentDAO studentDAO;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView list(@RequestParam(value="group", required=false) Integer group) {
-		ModelAndView mv = new ModelAndView("user.list", "command", new User());
+	public ModelAndView list(@RequestParam(value="q", required=false) Integer groupId) {
+		ModelAndView mv = new ModelAndView("user.list", "command", new Student());
 		mv.addObject("groups", toGroupMap(groupDAO.list("")));
-		mv.addObject("users", userDAO.list(group));
+		if(groupId != null && groupId > 0) { 
+			mv.addObject("users", studentDAO.list(groupId));
+		} else {
+			mv.addObject("users", studentDAO.list());
+		}
 		return mv;
 	}
 	
 	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public ModelAndView addNew(@Valid @ModelAttribute("command") User user, BindingResult result) {
+	public ModelAndView addNew(@Valid @ModelAttribute("command") Student user, BindingResult result) {
 		if(result.hasErrors()) {
 			ModelAndView mv = new ModelAndView("user.list", "command", user);
 			mv.addObject("groups", toGroupMap(groupDAO.list("")));
@@ -56,7 +60,7 @@ public class UserController {
 			return mv;
 		}
 		
-		userDAO.insert(user);
+		studentDAO.insert(user);
 		LOGGER.info("add new user -----> " + user);
 		return new ModelAndView("redirect:/account");
 	}
@@ -64,7 +68,7 @@ public class UserController {
 	@RequestMapping(value="/detail/{username}")
 	public ModelAndView detail(@PathVariable(value="username") String username) {
 		ModelAndView mv = new ModelAndView("user.detail");
-		mv.addObject("users", userDAO.get(username));
+		mv.addObject("user", studentDAO.get(username));
 		return mv;
 	}
 	

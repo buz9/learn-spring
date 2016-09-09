@@ -7,6 +7,7 @@
 		<form:form method="POST" action="/account/save">
 				Tài Khoản: <form:input type="text" path="username" name="username" /><br/>
 				Mật khẩu: <form:input type="password" path="password" name="password" /><br/>
+				Email: <form:input type="text" path="email" name="email" /><br/>
 				Tuổi: <form:input type="text" path="age" name="age" /><br/>
 				Nhóm: <form:select id="group" path="groupId" name="group">
 					<form:options items="${groups}"/>
@@ -23,7 +24,7 @@
 			<tr>
 				<td colspan="2">
 					<form method="GET" action="/account">
-						<input type="text" name="group">
+					Tìm theo groupId: <input type="text" name="q">
 					</form>
 				</td>
 			</tr>

@@ -4,6 +4,7 @@
 package com.hiber;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -20,21 +21,21 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Sep 4, 2016
  */
 @Configuration
+@EnableTransactionManagement
 public class HibernateConfig {
-//	@Autowired
-//	private ResourceLoader resourceLoader;
+	@Autowired
+	private ResourceLoader resourceLoader;
 
 	@Autowired
 	private DataSource dataSource;
 	
 	@Bean
-	public LocalSessionFactoryBean sessionFactory() throws IOException {
-//		Resource resource = resourceLoader.getResource("classpath:User.xml");
-		
+	public LocalSessionFactoryBean sessionFactory() throws IOException, SQLException {
+		Resource resource = resourceLoader.getResource("classpath:Student.xml");
 		LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
 		localSessionFactoryBean.setDataSource(dataSource);
 		localSessionFactoryBean.setPackagesToScan("com.hiber.model");
-//		localSessionFactoryBean.setMappingLocations(resource);
+		localSessionFactoryBean.setMappingLocations(resource);
 		return localSessionFactoryBean;
 	}
 }

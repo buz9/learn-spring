@@ -3,12 +3,13 @@
 "-//Hibernate/Hibernate Mapping DTD//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.hiber.model.User" table="Users">
+	<class name="com.hiber.model.Student" table="Students">
 		<meta attribute="class-description">
 			Mapping User class to table Users
 		</meta>
 		<id name="username" type="string" column="username"></id>
 		<property name="password" type="string" column="password"></property>
+		<property name="email" type="string" column="email"></property>
 		<property name="age" type="int" column="age"></property>
 		<property name="groupId" type="int" column="groupId"></property>
 		<many-to-one name="group" column="groupId" class="com.hiber.model.Group"

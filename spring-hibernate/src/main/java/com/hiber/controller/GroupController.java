@@ -47,7 +47,7 @@ public class GroupController {
 				LOGGER.info("save group -----> " + group);
 			}
 			
-		return new ModelAndView("group.list", "groups", groupDAO.list(""));
+		return new ModelAndView("group.list", "groups", groupDAO.list(null));
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -71,7 +71,7 @@ public class GroupController {
 		
 		ModelAndView mv = new ModelAndView("group.list", "command", group);
 		mv.addObject("groupName", group.getName());
-		mv.addObject("groups", groupDAO.list(""));
+		mv.addObject("groups", groupDAO.list(null));
 		return mv;
 	}
 }

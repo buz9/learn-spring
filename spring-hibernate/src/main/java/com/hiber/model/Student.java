@@ -3,9 +3,13 @@
  **************************************************************************/
 package com.hiber.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -13,9 +17,9 @@ import javax.persistence.UniqueConstraint;
  *  Author : tungtt         
  * Sep 2, 2016
  */
-@Entity(name="Users")
-@Table(name="Users", uniqueConstraints={@UniqueConstraint(columnNames="username")})
-public class User {
+@Entity
+@Table(name="Students", uniqueConstraints={@UniqueConstraint(columnNames="username")})
+public class Student implements Comparable<Student> {
 	@Id
 	@Column(name="username", unique=true, nullable=false)
 	private String username;
@@ -31,6 +35,8 @@ public class User {
 	
 	@Column(name="groupId", nullable=false)
 	private int groupId;
+	
+	private Group group;
 	
 	public String getUsername() {
 		return username;
@@ -70,5 +76,19 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+//	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+
+	@Override
+	public int compareTo(Student other) {
+		return age - other.age;
 	}
 }

@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * Sep 1, 2016
  */
 @Component
-public class ContextStartEventHandler implements ApplicationListener<ApplicationReadyEvent
+public class ContextStartEventHandler implements ApplicationListener<ContextStartedEvent
 > {
 	private final static Logger LOGGER = Logger.getLogger(ContextStartEventHandler.class);
 	
@@ -27,12 +27,12 @@ public class ContextStartEventHandler implements ApplicationListener<Application
 	private DataSource dataSource;
 	
 	@Override
-	public void onApplicationEvent(ApplicationReadyEvent context) {
+	public void onApplicationEvent(ContextStartedEvent context) {
 		try {
 //			createTable("Groups", "create table Groups(id BIGINT PRIMARY "
 //					+ "key GENERATED ALWAYS AS IDENTITY(START WITH 1, INCREMENT BY 1), "
 //					+ "name VARCHAR(50))");
-			createTable("Users", "create table Users("
+			createTable("Students", "create table Students("
 						+ "username VARCHAR(50) primary key, "
 						+ "password VARCHAR(50), "
 						+ "email VARCHAR(100), "

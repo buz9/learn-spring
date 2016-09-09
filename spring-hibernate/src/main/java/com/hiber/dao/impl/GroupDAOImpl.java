@@ -3,15 +3,18 @@
  **************************************************************************/
 package com.hiber.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.hiber.dao.GroupDAO;
 import com.hiber.model.Group;
@@ -21,7 +24,6 @@ import com.hiber.model.Group;
  * Sep 1, 2016
  */
 @Component("groupDAO")
-@EnableTransactionManagement
 public class GroupDAOImpl implements GroupDAO {
 	private final static Logger LOGGER = Logger.getLogger(GroupDAOImpl.class);
 	
@@ -37,6 +39,7 @@ public class GroupDAOImpl implements GroupDAO {
 			LOGGER.info("Save group " + group.getName() + " done!");
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
+		} finally {
 			session.close();
 		}
 	}
@@ -45,13 +48,14 @@ public class GroupDAOImpl implements GroupDAO {
 	public List<Group> list(String pattern) {
 		Session session = sessionFactory.getObject().openSession();
 		try {
-			Query query = session.createQuery("from Groups where name like :groupName");
-			query.setParameter("groupName", "%" + pattern + "%");
-			return (List<Group>) query.list();
+			if(pattern == null || pattern.length() < 1) {
+				Query query = session.createQuery("from Groups");
+				return (List<Group>) query.list();
+			}
 
-//			Criteria criteria = session.createCriteria(Group.class);
-//			criteria.add(Restrictions.like("name", "%" + pattern + "%", MatchMode.ANYWHERE));
-//			return new ArrayList<Group>(criteria.list());
+			Criteria criteria = session.createCriteria(Group.class);
+			criteria.add(Restrictions.like("name", "%" + pattern + "%", MatchMode.ANYWHERE));
+			return new ArrayList<Group>(criteria.list());
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {
@@ -80,6 +84,7 @@ public class GroupDAOImpl implements GroupDAO {
 	public void update(Group group) {
 		Session session = sessionFactory.getObject().openSession();
 		try {
+			group = (Group) session.merge(group);
 			session.save(group);
 			session.flush();
 			LOGGER.info("Update group " + group.getName() + " successful!");
@@ -93,9 +98,10 @@ public class GroupDAOImpl implements GroupDAO {
 	@Override
 	public Group get(int id) {
 		Session session = sessionFactory.getObject().openSession();
-		Group group = (Group) session.createQuery("from Groups where id = " + id).uniqueResult();
+		Query query =  session.createQuery("from Groups where id = :studentId");
+		query.setParameter("studentId", id);
 		try {
-			return group;
+			return (Group) query.uniqueResult();
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage());
 		} finally {

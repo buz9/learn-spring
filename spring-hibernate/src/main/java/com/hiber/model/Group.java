@@ -3,13 +3,25 @@
  **************************************************************************/
 package com.hiber.model;
 
+import java.util.List;
+import java.util.SortedSet;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import org.hibernate.annotations.SortComparator;
+import org.hibernate.annotations.SortNatural;
+
+import com.hiber.utils.UsernameComparator;
 
 /**
  *  Author : tungtt         
@@ -20,7 +32,8 @@ import javax.persistence.UniqueConstraint;
 public class Group {
 	private int id;
 	private String name;
-//	private List<User> users;
+//	private List<Student> users;
+	private SortedSet<Student> users;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -44,11 +57,23 @@ public class Group {
 
 //	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
 //	@JoinColumn(name="groupId")
-//	public List<User> getUsers() {
+//	public List<Student> getUsers() {
 //		return users;
 //	}
 //
-//	public void setUsers(List<User> users) {
+//	public void setUsers(List<Student> users) {
 //		this.users = users;
 //	}
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinColumn(name="groupId")
+//	@SortNatural
+	@SortComparator(UsernameComparator.class)
+	public SortedSet<Student> getUsers() {
+		return users;
+	}
+
+	public void setUsers(SortedSet<Student> users) {
+		this.users = users;
+	}
 }

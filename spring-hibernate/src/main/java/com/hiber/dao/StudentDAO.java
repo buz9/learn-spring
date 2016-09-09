@@ -5,15 +5,15 @@ package com.hiber.dao;
 
 import java.util.List;
 
-import com.hiber.model.Group;
-import com.hiber.model.User;
+import com.hiber.model.Student;
 
 /**
  *  Author : tungtt         
  * Sep 2, 2016
  */
-public interface UserDAO {
-	public User get(String username);
-	public List<User> list(Integer group);
-	public void insert(User user);
+public interface StudentDAO {
+	public Student get(String username);
+	public List<Student> list();
+	public List<Student> list(Integer group);
+	public void insert(Student user);
 }
