@@ -13,7 +13,12 @@ import com.hiber.model.Student;
  */
 public interface StudentDAO {
 	public Student get(String username);
+	public void delete(String name);
+	public void insert(Student user);
 	public List<Student> list();
 	public List<Student> list(Integer group);
-	public void insert(Student user);
+	public List<Student> listOlder();
+	public List<Student> page(int page);
+	public List<Student> listUserByNativeSQL();
+	public void addBatch();
 }

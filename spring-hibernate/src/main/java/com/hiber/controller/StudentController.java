@@ -40,13 +40,15 @@ public class StudentController {
 	private StudentDAO studentDAO;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ModelAndView list(@RequestParam(value="q", required=false) Integer groupId) {
+	public ModelAndView list(@RequestParam(value="q", required=false) Integer groupId, @RequestParam(value="page", required=false) Integer page) {
 		ModelAndView mv = new ModelAndView("user.list", "command", new Student());
 		mv.addObject("groups", toGroupMap(groupDAO.list("")));
 		if(groupId != null && groupId > 0) { 
 			mv.addObject("users", studentDAO.list(groupId));
 		} else {
-			mv.addObject("users", studentDAO.list());
+//			if(page == null) page = 1;
+//			mv.addObject("users", studentDAO.page(page));
+			mv.addObject("users", studentDAO.listUserByNativeSQL());
 		}
 		return mv;
 	}
@@ -72,9 +74,21 @@ public class StudentController {
 		return mv;
 	}
 	
+	@RequestMapping(value="/delete-{name}", method=RequestMethod.GET)
+	public String delete(@PathVariable(value="name") String name) {
+		studentDAO.delete(name);
+		return "redirect:/account";
+	}
+	
 	private Map<Integer, String> toGroupMap(List<Group> groups) {
 		Map<Integer, String> map = new HashMap<>();
 		groups.forEach(group -> map.put(group.getId(), group.getName()));
 		return map;
+	}
+	
+	@RequestMapping("/batch-add")
+	public String addRandom() {
+		studentDAO.addBatch();
+		return "redirect:/account";
 	}
 }
