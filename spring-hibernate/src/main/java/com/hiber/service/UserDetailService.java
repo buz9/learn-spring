@@ -20,7 +20,7 @@ import com.hiber.model.Student;
 /**
  * Author : tungtt Sep 9, 2016
  */
-@Service("studentDetailsService")
+@Service("userDetailService")
 public class UserDetailService implements UserDetailsService {
 
 	@Autowired

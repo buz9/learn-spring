@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 public class SocialUserDetailService implements SocialUserDetailsService {
 
 	@Autowired
-	@Qualifier(value = "userDetailService")
+	@Qualifier(value="userDetailService")
 	private UserDetailService userDetailService;
 
 	@Override
