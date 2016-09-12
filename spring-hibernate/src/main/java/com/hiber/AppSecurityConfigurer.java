@@ -32,8 +32,8 @@ import com.hiber.service.UserAuthProvider;
 //@EnableWebSecurity
 //@Configuration
 public class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
-	private final static String API_KEY = "565210560331106";
-	private final static String APP_SECRET = "d9b50d3ddf2c4342b4e57dcbedd05d41";
+	private final static String API_KEY = "";
+	private final static String APP_SECRET = "";
 
 	@Autowired
 	private UserDetailsService userDetailService;
