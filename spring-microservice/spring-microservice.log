@@ -1,0 +1,15 @@
+[2016-09-15 14:14:31] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 14:18:02] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 14:25:30] INFO [http-nio-8080-exec-1] UserDAOImpl.list(37) | org.hibernate.dialect.MySQL5Dialect
+[2016-09-15 14:51:17] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 15:03:20] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 15:29:43] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 15:37:22] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 15:42:16] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 15:44:45] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 15:46:21] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 15:54:46] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 16:15:24] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 16:18:51] INFO [http-nio-8080-exec-1] UserDAOImpl.insert(54) | Save user test3 done!
+[2016-09-15 16:22:39] INFO [main] AppConfig.dataSource(59) | schema: null
+[2016-09-15 16:30:27] INFO [main] AppConfig.dataSource(59) | schema: null

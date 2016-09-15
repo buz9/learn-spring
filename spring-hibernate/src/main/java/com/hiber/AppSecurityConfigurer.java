@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -32,8 +33,11 @@ import com.hiber.service.UserAuthProvider;
 //@EnableWebSecurity
 //@Configuration
 public class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
-	private final static String API_KEY = "";
-	private final static String APP_SECRET = "";
+	@Autowired
+	private Environment env;
+	
+//	private final static String API_KEY = "";
+//	private final static String APP_SECRET = "";
 
 	@Autowired
 	private UserDetailsService userDetailService;
@@ -97,7 +101,8 @@ public class AppSecurityConfigurer extends WebSecurityConfigurerAdapter {
 	@Bean
 	public SocialAuthServiceRegistry connectionFactoryLocator() {
 		List<SocialAuthenticationService<?>> list = new ArrayList<>();
-		list.add(new FacebookAuthenticationService(API_KEY, APP_SECRET));
+		list.add(new FacebookAuthenticationService(env.getProperty("spring.social.facebook.app-id"), 
+										env.getProperty("spring.social.facebook.app-secret")));
 		return new SocialAuthServiceRegistry(list);
 	}
 }
